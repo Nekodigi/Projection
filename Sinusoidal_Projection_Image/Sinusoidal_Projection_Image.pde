@@ -33,7 +33,7 @@ void draw(){
       for(float j = 0 ; j <= resJ; j++){
         float lambda = map(j, 0, resJ, -PI, PI);
         float hue = map(j, 0, resJ, 0, 360);
-        PVector p = sinsodialProjection(projSize, phi, lambda, lambda0);
+        PVector p = sinusoidalProjection(projSize, phi, lambda, lambda0);
         vertex(p.x, p.y);
       }
       endShape();
@@ -45,7 +45,7 @@ void draw(){
       beginShape();
       for(int i = 0 ; i <= resI; i++){
         float phi = map(i, 0, resI, -HALF_PI, HALF_PI);
-        PVector p = sinsodialProjection(projSize, phi, lambda, lambda0);
+        PVector p = sinusoidalProjection(projSize, phi, lambda, lambda0);
         vertex(p.x, p.y);
       }
       endShape();
@@ -55,7 +55,7 @@ void draw(){
   noStroke();
   for(float x = -outSize; x < outSize; x+=tileS){
       for(float y = -outSize; y < outSize; y+=tileS){
-        PVector p2 = unSinsodialProjection(projSize, x, y, lambda0);//-half_pi < phi(x) < half_pi, -pi < lamda(y) < pi
+        PVector p2 = unSinusoidalProjection(projSize, x, y, lambda0);//-half_pi < phi(x) < half_pi, -pi < lamda(y) < pi
         p2 = new PVector(map(p2.x, -HALF_PI, HALF_PI, 0, img.width), map(p2.y, -PI, PI, 0, img.height));//0 < x < img.width, 0 < y < img.height
   
         if(p2.x > 0 && p2.x < img.width && p2.y > 0 && p2.y < img.height){
