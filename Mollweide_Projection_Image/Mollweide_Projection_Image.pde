@@ -1,5 +1,5 @@
-float outScale = 200;
-float projScale = 100;
+float outSize = 200;
+float projSize = 100;
 int resI = 30;
 int resJ = 30;
 PImage img;
@@ -18,7 +18,6 @@ void setup(){
 void draw(){
   background(255);
   image(img, 0, 0, height/4, height/4);
-  float phi1 = (float(frameCount)/100)%PI-HALF_PI;
   float lambda0 = (float(frameCount)/20)%TWO_PI-PI;
   translate(width/2, height/2);
   float tileS = 10;
@@ -34,7 +33,7 @@ void draw(){
       for(float j = 0 ; j <= resJ; j++){
         float lambda = map(j, 0, resJ, -PI, PI);
         float hue = map(j, 0, resJ, 0, 360);
-        PVector p = stereoProjection(projScale, phi, phi1, lambda, lambda0);
+        PVector p = mollweideProjection(projSize, phi, lambda, lambda0);
         vertex(p.x, p.y);
       }
       endShape();
@@ -46,7 +45,7 @@ void draw(){
       beginShape();
       for(int i = 0 ; i <= resI; i++){
         float phi = map(i, 0, resI, -HALF_PI, HALF_PI);
-        PVector p = stereoProjection(projScale, phi, phi1, lambda, lambda0);
+        PVector p = mollweideProjection(projSize, phi, lambda, lambda0);
         vertex(p.x, p.y);
       }
       endShape();
@@ -54,9 +53,9 @@ void draw(){
   }
   //show image
   noStroke();
-  for(float x = -outScale; x < outScale; x+=tileS){
-      for(float y = -outScale; y < outScale; y+=tileS){
-        PVector p2 = unStereoProjection(projScale, x, y, phi1, lambda0);//-half_pi < phi(x) < half_pi, -pi < lamda(y) < pi
+  for(float x = -outSize; x < outSize; x+=tileS){
+      for(float y = -outSize; y < outSize; y+=tileS){
+        PVector p2 = unMollweideProjection(projSize, x, y, lambda0);//-half_pi < phi(x) < half_pi, -pi < lamda(y) < pi
         p2 = new PVector(map(p2.x, -HALF_PI, HALF_PI, 0, img.width), map(p2.y, -PI, PI, 0, img.height));//0 < x < img.width, 0 < y < img.height
   
         if(p2.x > 0 && p2.x < img.width && p2.y > 0 && p2.y < img.height){
