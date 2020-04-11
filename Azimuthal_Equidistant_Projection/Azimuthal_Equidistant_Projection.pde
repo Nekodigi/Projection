@@ -1,12 +1,12 @@
-float projSize = 300;
+float projSize = 100;
 int resI = 30;
 int resJ = 30;
 
 void setup(){
-  //size(1280, 720);
-  fullScreen();
+  size(1280, 720);
+  //fullScreen();
   colorMode(HSB, 360, 100, 100);
-  strokeWeight(10);
+  strokeWeight(4);
   noFill();
 }
 
